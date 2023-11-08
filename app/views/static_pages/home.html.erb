@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Home | Cr9Co0</title>
-  </head>
+<% provide(:title, "Home") %>
 
-  <body>
-    <h1>Cr9Co0 App</h1>
-    <p>
-       This is the home page for my
-      <a href="https://github.com/DRY9p">GitHub</a>
-      sample application.
-    </p>
-  </body>
-<html>
+<title><%= yield(:title) %></title>
+
+<h1>Cr9Co0 App</h1>
+<p>
+   This is the home page for my
+  <a href="https://github.com/DRY9p">GitHub</a>
+  sample application.
+</p>
