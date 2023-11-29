@@ -1,0 +1,14 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= image_tag "pngegg.png", width: "38", id: "logo" %>
+    <%= link_to "sample_app", root_path, id: "logo" %>
+    <!--<%= link_to "sample app", '#', id: "logo" %> - old solution-->
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Home",   root_path %></li>
+          <li><%= link_to "Help",   help_path %></li>
+          <li><%= link_to "Log in", "#" %></li>
+        </ul>
+      </nav>
+  </div>
+</header>
