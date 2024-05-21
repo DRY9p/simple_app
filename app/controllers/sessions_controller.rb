@@ -2,18 +2,23 @@ class SessionsController < ApplicationController
   def new
   end
 
-  def create
-    @user = User.find_by(email: params[:session][:email].downcase)
-    if @user&.authenticate(params[:session][:password]) # if don't remember wtf is that, check 'ruby safe navigation'
-      # Log the user in and redirect to the user's show page.
-      forwarding_url = session[:forwarding_url]
-      reset_session
-      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      log_in @user
-      redirect_to forwarding_url || @user
+  def create 
+    user = User.find_by(email: params[:session][:email].downcase)
+    if user&.authenticate(params[:session][:password])
+      if user.activated?
+        forwarding_url = session[:forwarding_url]
+        reset_session
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        log_in user
+        redirect_to forwarding_url || user
+      else
+        message = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to root_url
+      end
     else
-       # Create an error message.
-      flash.now[:danger] = 'Invalid email/password combination' #Not quite right if flash[:danger]!
+      flash.now[:danger] = 'Invalid email/password combination'
       render 'new', status: :unprocessable_entity
     end
   end

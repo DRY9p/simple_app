@@ -67,4 +67,24 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  config.action_mailer.raise_delivery_errors = false
+
+  host = 'localhost:3000'
+  # Use this on colud IDE
+  # config.action_mailer.default_url_options = { host: host, protocol: 'https'}
+  # developing on local host
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: host, protocol: 'http'}
+
+  # SMTP settings for Gmail
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    user_name: Rails.application.credentials.gmail.address,
+    password: Rails.application.credentials.gmail.password,
+    authentication: "plain",
+    enable_starttls_auto: true
+  }
+
 end
